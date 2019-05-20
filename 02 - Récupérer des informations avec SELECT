@@ -1,0 +1,81 @@
+wilder@wilder-ThinkPad-T430s:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.26-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sqlquests          |
+| sys                |
+| wild_db_quest      |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use wild_db_quest
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select* from wizard where birthday between '1975-01-01' and '1985-01-01'; 
++----+-----------+----------+------------+-------------+---------------------------------------+-----------+
+| id | firstname | lastname | birthday   | birth_place | biography                             | is_muggle |
++----+-----------+----------+------------+-------------+---------------------------------------+-----------+
+|  1 | harry     | potter   | 1980-07-31 | london      |                                       |         0 |
+|  2 | hermione  | granger  | 1979-09-19 |             | Friend of Harry Potter                |         0 |
+|  4 | ron       | weasley  | 1980-03-01 |             | Best friend of Harry                  |         0 |
+|  5 | ginny     | weasley  | 1981-08-11 |             | Sister of Ron and girlfriend of Harry |         0 |
+|  6 | fred      | weasley  | 1978-04-01 |             |                                       |         0 |
+|  7 | george    | weasley  | 1978-04-01 |             |                                       |         0 |
+| 10 | drago     | malefoy  | 1980-06-05 |             |                                       |         0 |
+| 14 | dudley    | dursley  | 1980-06-23 |             | Cousin d'Harry                        |         1 |
++----+-----------+----------+------------+-------------+---------------------------------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select firstname from wi
+wild_db_quest      wizard.birth_place wizard.id         
+wizard             wizard.birthday    wizard.is_muggle  
+wizard.biography   wizard.firstname   wizard.lastname   
+mysql> select firstname from wizard where firstname like 'H%';
++-----------+
+| firstname |
++-----------+
+| harry     |
+| hermione  |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> select firstname,lastname from wizard where lastname='Potter' order by firstname asc;
++-----------+----------+
+| firstname | lastname |
++-----------+----------+
+| harry     | potter   |
+| lily      | potter   |
++-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select firtname, lastname, birthday from wizard where is_muggle =0 order by birthday asc limit 1;
+ERROR 1054 (42S22): Unknown column 'firtname' in 'field list'
+mysql> select firstname, lastname, birthday from wizard where is_muggle =0 order by birthday asc limit 1;
++-----------+------------+------------+
+| firstname | lastname   | birthday   |
++-----------+------------+------------+
+| albus     | dumbledore | 1881-07-01 |
++-----------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> ^DBye
+wilder@wilder-ThinkPad-T430s:~$ 
